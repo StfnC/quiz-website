@@ -7,6 +7,10 @@ from django import forms
 import csv
 import io
 
+admin.site.site_header = 'Quiz Admin'
+admin.site.site_title = 'Quiz Admin'
+admin.site.index_title = 'Quiz Admin'
+
 # Register custom models
 admin.site.register(PlayerGroup)
 admin.site.register(Player)
