@@ -1,0 +1,15 @@
+{% extends 'admin/base.html' %}
+
+{% block branding %}
+<h1>Quiz Admin</h1>
+{% endblock %}
+{% block content %}
+    <div>
+        <form action="." method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+
+                <button type="submit">Créer groupe</button>
+        </form>
+    </div>
+{% endblock %}
