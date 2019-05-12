@@ -76,13 +76,16 @@ class QuestionAdmin(admin.ModelAdmin):
                     choice_1 = row[1],
                     choice_2 = row[2],
                     choice_3 = row[3],
-                    choice_4 = row[4]
+                    choice_4 = row[4],
+                    explanation = row[6]
                 )
-                new_question = Question.objects.filter(question=row[0]).first()
+                new_question = Question.objects.get(question=row[0])
                 new_question.set_answer(row[5])
                 new_question.save()
             self.message_user(request, 'Le fichier a été ajouté')
             return redirect('/admin')
         form = CsvImportForm()
-        context = {'form': form}
+        context = {
+                    'form': form
+                    }
         return render(request, 'quiz/csv_form.html', context)
