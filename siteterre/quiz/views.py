@@ -19,6 +19,7 @@ def home(request):
     return render(request, 'quiz/home.html', context)
 
 def question(request, question_id):
+    last_question_id = Question.objects.order_by('id').reverse()[0].id
     question = Question.objects.get(id=question_id)
     choices = [
                 question.choice_1,
@@ -30,7 +31,16 @@ def question(request, question_id):
     question_answer = question.get_answer()
     player = Player.objects.get(id=request.session['player_id'])
     if request.method == 'POST':
-        pass
+        given_answer = request.POST.get('choice')
+        if given_answer == question_answer:
+            player.increase_score(4)
+        else:
+            player.decrease_lives(1)
+        player.save()
+        if question_id == last_question_id:
+            return redirect('/home')
+        else:
+            return redirect(reverse('quiz:question', args=[question_id + 1]))
     context = {
                 'question': Question.objects.get(id=question_id),
                 'question_choices': choices,

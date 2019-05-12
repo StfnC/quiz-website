@@ -1,7 +1,8 @@
 <p>{{ score }}</p>
 <p>{{ lives }}</p>
 <h3>{{ question.question }}</h3>
-<form action="." method="POST">
+<form action="{% url 'quiz:question' question_id=question.id %}" method="POST">
+    {% csrf_token %}
     {% for choice in question_choices %}
         <br>
         <input type="radio" name="choice" value="{{ choice }}">{{ choice }}</input>
