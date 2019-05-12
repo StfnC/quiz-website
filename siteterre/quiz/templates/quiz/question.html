@@ -11,15 +11,12 @@
     <form action="{% url 'quiz:question' question_id=question.id %}" method="POST">
         {% csrf_token %}
         {% for choice in question_choices %}
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        <input type="radio" name="choice" aria-label="Radio button for following text input">
-                    </div>
-                </div>
-                <label type="text" class="form-control" name="choice_text"">{{ choice }}</label>
+        {% if choice != '...' %}
+            <div class="radio">
+                <label><input type="radio" name="choice" value="{{ choice }}"> {{ choice }}</label>
             </div>
             <br>
+        {% endif %}
         {% endfor %}
         <br>
         <button type="submit" name="button" class="btn btn-primary btn-lg">Valider</button>
