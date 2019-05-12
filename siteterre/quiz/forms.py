@@ -5,3 +5,7 @@ class PlayerForm(ModelForm):
     class Meta:
         model = Player
         fields = ['username', 'player_group']
+        labels = {
+                    'username': 'Nom d\'utilisateur',
+                    'player_group': 'Groupe'
+                    }
