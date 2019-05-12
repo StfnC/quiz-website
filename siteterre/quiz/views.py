@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse
+from django.contrib import messages
 from .models import PlayerGroup, Player, Question
 from .forms import PlayerForm
 from random import shuffle
@@ -42,6 +42,7 @@ def question(request, question_id):
         else:
             player.decrease_lives(1)
         player.save()
+        messages.info(request, f'{question.explanation}')
         if question_id == last_question_id or player.lives == 0:
             return redirect(reverse('quiz:leaderboard', args=[player.player_group]))
         else:
