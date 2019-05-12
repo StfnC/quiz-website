@@ -35,8 +35,6 @@ def question(request, question_id):
     player = Player.objects.get(id=request.session['player_id'])
     if request.method == 'POST':
         given_answer = request.POST.get('choice')
-        print(given_answer)
-        print(question_answer)
         if given_answer in question_answer:
             player.increase_score(4)
         else:
