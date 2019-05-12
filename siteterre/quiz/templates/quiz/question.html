@@ -1,12 +1,16 @@
-<p>{{ score }}</p>
-<p>{{ lives }}</p>
-<h3>{{ question.question }}</h3>
-<form action="{% url 'quiz:question' question_id=question.id %}" method="POST">
-    {% csrf_token %}
-    {% for choice in question_choices %}
+{% extends "quiz/base.html" %}
+
+{% block app_content %}
+    <p>{{ score }}</p>
+    <p>{{ lives }}</p>
+    <h3>{{ question.question }}</h3>
+    <form action="{% url 'quiz:question' question_id=question.id %}" method="POST">
+        {% csrf_token %}
+        {% for choice in question_choices %}
+            <br>
+            <input type="radio" name="choice" value="{{ choice }}">{{ choice }}</input>
+        {% endfor %}
         <br>
-        <input type="radio" name="choice" value="{{ choice }}">{{ choice }}</input>
-    {% endfor %}
-    <br>
-    <button type="submit" name="button">Valider</button>
-</form>
+        <button type="submit" name="button">Valider</button>
+    </form>
+{% endblock %}
