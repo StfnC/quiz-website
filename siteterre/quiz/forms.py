@@ -5,4 +5,3 @@ class PlayerForm(ModelForm):
     class Meta:
         model = Player
         fields = ['username', 'player_group']
-        

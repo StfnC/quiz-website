@@ -1,0 +1,11 @@
+<p>{{ score }}</p>
+<p>{{ lives }}</p>
+<h3>{{ question.question }}</h3>
+<form action="." method="POST">
+    {% for choice in question_choices %}
+        <br>
+        <input type="radio" name="choice" value="{{ choice }}">{{ choice }}</input>
+    {% endfor %}
+    <br>
+    <button type="submit" name="button">Valider</button>
+</form>
