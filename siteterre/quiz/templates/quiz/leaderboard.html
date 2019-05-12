@@ -1,0 +1,5 @@
+<h1>Classement du groupe {{ player_group }}</h1>
+{% for player in players_in_group %}
+    <br>
+    <p>{{ player.username }}: {{ player.score }}</p>
+{% endfor %}

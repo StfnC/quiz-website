@@ -15,7 +15,9 @@ def home(request):
             request.session['player_id'] = new_player.id
         return redirect(reverse('quiz:question', args=[Question.objects.order_by('id').first().id]))
     form = PlayerForm()
-    context = {'form': form}
+    context = {
+                'form': form
+                }
     return render(request, 'quiz/home.html', context)
 
 def question(request, question_id):
@@ -37,8 +39,8 @@ def question(request, question_id):
         else:
             player.decrease_lives(1)
         player.save()
-        if question_id == last_question_id:
-            return redirect('/home')
+        if question_id == last_question_id or player.lives == 0:
+            return redirect(reverse('quiz:leaderboard', args=[player.player_group]))
         else:
             return redirect(reverse('quiz:question', args=[question_id + 1]))
     context = {
@@ -48,3 +50,12 @@ def question(request, question_id):
                 'lives': player.lives
                 }
     return render(request, 'quiz/question.html', context)
+
+def leaderboard(request, player_group):
+    player_group = PlayerGroup.objects.get(player_group=player_group)
+    players_in_group = player_group.player_set.order_by('score').reverse().all()
+    context = {
+                'player_group': player_group,
+                'players_in_group': players_in_group
+                }
+    return render(request, 'quiz/leaderboard.html', context)

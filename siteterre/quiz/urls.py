@@ -22,4 +22,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('home', views.home, name='home'),
     path('question/<int:question_id>', views.question, name='question'),
+    path('leaderboard/<int:player_group>', views.leaderboard, name='leaderboard'),
 ]
