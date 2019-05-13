@@ -55,11 +55,20 @@ def question(request, question_id):
     return render(request, 'quiz/question.html', context)
 
 def leaderboard(request, player_group):
-    player_group = PlayerGroup.objects.get(player_group=player_group)
-    players_in_group = player_group.player_set.order_by('score').reverse().all()
-    context = {
-                'title': f'Classement du groupe {player_group}',
-                'player_group': player_group,
-                'players_in_group': players_in_group
-                }
-    return render(request, 'quiz/leaderboard.html', context)
+    if player_group == 0:
+        players_in_group = Player.objects.order_by('score').reverse().all()
+        context = {
+                    'title': 'Classement general',
+                    'player_group': 'General',
+                    'players_in_group': players_in_group
+                    }
+        return render(request, 'quiz/leaderboard.html', context)
+    else:
+        player_group = PlayerGroup.objects.get(player_group=player_group)
+        players_in_group = player_group.player_set.order_by('score').reverse().all()
+        context = {
+                    'title': f'Classement du groupe {player_group}',
+                    'player_group': player_group,
+                    'players_in_group': players_in_group
+                    }
+        return render(request, 'quiz/leaderboard.html', context)
