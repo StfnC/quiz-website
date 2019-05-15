@@ -1,0 +1,22 @@
+{% extends "quiz/base.html" %}
+{% load widget_tweaks %}
+
+{% block app_content %}
+    <form action="." method="POST">
+        {% csrf_token %}
+        {% for hidden_field in form.hidden_fields %}
+            {{ hidden_field }}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            <div class="form-row">
+                <div class="col-5">
+                    {{ field.label_tag }}
+                    {% render_field field class="form-control" %}
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+        <br>
+        <button type="submit" class="btn btn-primary">Commencer</button>
+    </form>
+{% endblock %}

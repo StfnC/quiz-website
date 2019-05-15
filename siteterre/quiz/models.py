@@ -31,6 +31,7 @@ class Question(models.Model):
     choice_3 = models.CharField(max_length=300)
     choice_4 = models.CharField(max_length=300)
     answer = models.CharField(max_length=500, default='[]')
+    explanation = models.CharField(max_length=1000, default='')
 
     def __str__(self):
         return self.question
