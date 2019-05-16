@@ -1,7 +1,0 @@
-*.db
-*.log
-*.env
-*.dev
-*.sqlite3
-logs/
-Procfile
